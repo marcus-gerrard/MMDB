@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'mobile_landing_page.dart';
-import 'movie_showcase.dart';
-import 'actor_showcase.dart';
+import 'trending_movie_showcase.dart';
+import 'trending_actor_showcase.dart';
 
 double topBarHeight = 0.25;
 

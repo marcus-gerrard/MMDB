@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mmdb/models/full_movie.dart';
 
 class AppState extends ChangeNotifier {
   //API Keys
@@ -8,6 +7,7 @@ class AppState extends ChangeNotifier {
   //Image URL's
   static const posterURL = 'https://image.tmdb.org/t/p/w500';
   static const backdropURL = 'https://image.tmdb.org/t/p/w1280';
+  static const headshotURL = "https://image.tmdb.org/t/p/w500";
 
   // Common Components
   static Color logoColor = Colors.blue[800]!;
@@ -24,11 +24,20 @@ class AppState extends ChangeNotifier {
   static TextStyle showcaseInfoStyle = TextStyle(
       color: Colors.grey[200], fontSize: 15, fontWeight: FontWeight.w600);
 
-  static TextStyle filmInformationStyle = TextStyle(
-      color: Colors.grey[600], fontSize: 16, fontWeight: FontWeight.w600);
+  static TextStyle actorNameStyle = const TextStyle(
+      color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600);
 
-  static TextStyle genreInformationStyle = const TextStyle(
-      color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600);
+  static TextStyle showcaseHeadingStyle =
+      TextStyle(color: logoColor, fontSize: 20, fontWeight: FontWeight.w600);
+
+  static const TextStyle actorHeadingStyle =
+      TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold);
+  
+  static const TextStyle actorSubheadingStyle =
+      TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600);
+
+  static const TextStyle actorInfoStyle =
+      TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal);
 
   //Common Helper Functions
   static String convertDateToReadableFormat(String oldDate) {
@@ -110,15 +119,18 @@ class AppState extends ChangeNotifier {
     return oldGenres.map((genre) => genre['name'].toString()).toList();
   }
 
-  static List<String> getDirector(FullMovie movie) {
-    return ['Denis Villeneuve'];
+  static String getReadableNumber(double budget) {
+    if (budget > 1000000) {
+      return "\$${(budget / 1000000).toStringAsFixed(0)} million";
+    }
+    return "\$${(budget / 100000).toStringAsFixed(0)},000";
   }
 
-  static List<String> getWriter(FullMovie movie) {
-    return ['Eric Heisserer'];
-  }
-
-  static List<String> getTopCast(FullMovie movie) {
-    return ['Amy Adams', 'Jeremy Renner', 'Forest Whitaker'];
+  static List<String> getProductionCompanies(
+      List<dynamic> mappedCompanies) {
+    List<String> companies = mappedCompanies.map((item) {
+      return item['name'] as String;
+    }).toList();
+    return companies;
   }
 }

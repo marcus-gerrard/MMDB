@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-// import 'showcase_page.dart';
-import 'showcase_page_copy.dart';
+import 'showcase_page.dart';
 import 'package:mmdb/app_state.dart';
 import 'package:mmdb/services/tmdb_api_service.dart';
 import 'models/movie.dart';
@@ -162,7 +161,7 @@ class MovieTile extends StatelessWidget {
           InkWell(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ShowcasePageCopy(movie: movie)));
+                  MaterialPageRoute(builder: (context) => ShowcasePage(movie: movie)));
             },
             child: Container(
               color: Colors.grey,
