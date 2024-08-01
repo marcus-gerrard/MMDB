@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mmdb/actor_showcase_page.dart';
 import 'package:mmdb/app_state.dart';
 import 'package:mmdb/services/tmdb_api_service.dart';
 import 'models/actor.dart';
@@ -36,10 +37,9 @@ class ActorShowcase extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 5),
-                  child: Text("Trending Actors",
+                  child: Text("Trending Celebrities",
                       style: AppState.headingStyle.copyWith(fontSize: 20)),
                 ),
-                const SeeMoreButton(),
               ],
             ),
           ),
@@ -113,43 +113,28 @@ class ActorRow extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Container(
-        decoration: BoxDecoration(
-            border: Border(
-                bottom:
-                    BorderSide(color: Colors.grey.withOpacity(0.6), width: 1))),
-        padding: const EdgeInsets.all(8),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(actor.name, style: AppState.headingStyle.copyWith(fontSize: 16)),
-          SizedBox(
-              height: height * heightPercent,
-              width: width * widthPercent,
-              child: Image.network(
-                  'https://image.tmdb.org/t/p/w500${actor.profilePath}')),
-        ]),
+      child: InkWell(
+        onTap:() {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ActorShowcasePage(actorID: actor.id)));
+            },
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  bottom:
+                      BorderSide(color: Colors.grey.withOpacity(0.6), width: 1))),
+          padding: const EdgeInsets.all(8),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text(actor.name, style: AppState.headingStyle.copyWith(fontSize: 16)),
+            SizedBox(
+                height: height * heightPercent,
+                width: width * widthPercent,
+                child: Image.network(
+                    'https://image.tmdb.org/t/p/w500${actor.profilePath}')),
+          ]),
+        ),
       ),
     );
-  }
-}
-
-class SeeMoreButton extends StatelessWidget {
-  const SeeMoreButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-        onPressed: () {},
-        child: Row(
-          children: [
-            Text("See More", style: AppState.subheadingStyle),
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: Colors.grey.shade600,
-            ),
-          ],
-        ));
   }
 }
